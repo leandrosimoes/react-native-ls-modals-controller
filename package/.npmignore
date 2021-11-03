@@ -1,0 +1,8 @@
+.codacy.yml
+.eslintrc
+.gitattributes
+.gitignore
+.prettierrc
+node_modules/
+tsconfig.json
+src/

@@ -1,0 +1,75 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-typescript-prettier",
+    "prettier"
+  ],
+  "globals": {
+    "__DEV__": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "useJSXTextNode": true,
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": ".",
+    "isolatedModules": false
+  },
+  "rules": {
+    "radix": 0,
+    "no-prototype-builtins": 0,
+    "no-return-await": 0,
+    "no-empty": 0,
+    "no-param-reassign": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/static-property-placement": 0,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "import/prefer-default-export": 0,
+    "import/extensions": 0,
+    "import/named": 0,
+    "import/no-named-as-default": 0,
+    "import/no-named-as-default-member": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true,
+        "jsxSingleQuote": true,
+        "endOfLine": "auto"
+      }
+    ]
+  },
+  "plugins": [
+    "import",
+    "jsx-a11y",
+    "prettier",
+    "react",
+    "react-hooks",
+    "@typescript-eslint"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts", ".jsx", ".tsx"],
+        "paths": ["src"]
+      }
+    }
+  },
+  "ignorePatterns": ["**/lib/*", "**/__tests__/*", "**/*.d.ts"]
+}

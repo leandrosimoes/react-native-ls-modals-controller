@@ -1,0 +1,9 @@
+{
+    "typescript.tsdk": "/node_modules/typescript/lib",
+    "github.copilot.enable": {
+        "*": false,
+        "yaml": false,
+        "plaintext": false,
+        "markdown": false
+    }
+}
