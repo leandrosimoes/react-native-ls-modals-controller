@@ -1,68 +1,100 @@
 # react-native-ls-modals-controller
 
-A simple React Native modals queue to handle multiple modals without errors, specially in iOS
+A React Native library to control multiple modals as a queue or a stack and avois some errors, specially on iOS
 
-## Installing
+## Install
 
-Run `npm i react-native-ls-modals-controller` or `yarn add react-native-ls-modals-controller`
+`npm i react-native-ls-modals-controller` 
+
+or 
+
+`yarn add react-native-ls-modals-controller`
 
 ## Usage
 
-1) Wrap the application content with the Modal Queue Provider
+1) Wrap your app content with the `ModalQueueProvider` or `ModalStackProvider`
 
 ```jsx
-import { ModalQueueProvider } from 'react-native-ls-modals-controller'
+import { ModalQueueProvider, ModalStackProvider } from 'react-native-ls-modals-controller'
 
-const App = () => {
+export default App = () => {
     return (
         <ModalQueueProvider>
-            {/* REST OF THE APP COMPONENTS */}
+            <ModalStackProvider>
+                ...
+            </ModalStackProvider>
         </ModalQueueProvider>
     )
 }
 ```
 
-2) Create a ModalQueue with some ModalQueueItem's inside
+* PS: We strongly recomend using just one controller, `ModalQueueProvider` or `ModalStackProvider`. Since the state of both are not shared between each other, just use in case you really know how you'll control between the modals in each provider. We are planing to create a better way to manage that in the future.
+
+2) Create a `ModalQueue` or a `ModalStack` and add some `ModalQueueItem` or `ModalStackItem` childs as you want
 
 ```jsx
-const ModalContent = () => {
-    return (
-        <View>
-            <Text>This is just a component to use in the ModalQueueItem component prop</Text>
-        </View>
-    )
-}
+const defaultModalProps = { animationType: 'slide' }
 
-const MyModalQueue = () => {
-    const defaultModalProps: ModalProps = { animationType: 'slide' }
+<ModalQueue>
+    <ModalQueueItem id={1} component={...} {...defaultModalProps} />
+    <ModalQueueItem id={2} component={...} {...defaultModalProps} />
+    <ModalQueueItem id={3} component={...} {...defaultModalProps} />
+    ...
+</ModalQueue>
 
-    return (
-        <ModalQueue timeoutThreshold={1000}>
-            <ModalQueueItem id={1} component={<ModalContent />} {...defaultModalProps} />
-            <ModalQueueItem id={2} component={<ModalContent />} {...defaultModalProps} />
-            <ModalQueueItem id={3} component={<ModalContent />} {...defaultModalProps} />
-        </ModalQueue>
-    )
-}
+<ModalStack>
+    <ModalStackItem id={1} component={...} {...defaultModalProps} />
+    <ModalStackItem id={2} component={...} {...defaultModalProps} />
+    <ModalStackItem id={3} component={...} {...defaultModalProps} />
+    ...
+</ModalStack>
 ```
 
-3) Use the `useModalQueue` hook to access the queue state and methods
+3) Use the `useModalQueue` or `useModalStack` hooks to have access for state and methods
 
 ```jsx
-import { useModalQueue } from 'react-native-ls-modals-controller'
+    const { state, currentId, enqueue, dequeue, clear } = useModalQueue()
+    ...
+    
+    const { state, currentId, add, remove, clear } = useModalStack()
+    ...
+```
 
-const MyComponent = () => {
-    const { 
-        enqueue, // Add a modal to the queue based on the id passed
-        dequeue,  // Dequeue the first modal open
-        clear, // Dequeue all modals
-        state, // State containing the `queue` props that is an array of modal ids enqueued
-        currentId // First open modal
-    } = useModalQueue()
+## Types
 
+```typescript
+type ModalControllerState = {
+    queue: Array<number | string>
+}
 
-    return (
-        ...
-    )
+type ModalControllerContextProps = {
+    state: ModalControllerState
+    setState: React.Dispatch<React.SetStateAction<ModalControllerState>>
+}
+
+type ModalQueueItemProps = ModalProps & {
+    id: number | string
+    component: React.ReactNode
+    timeoutThreshold?: number
+}
+
+type ModalStackItemProps = ModalProps & {
+    id: number | string
+    component: React.ReactNode
+    timeoutThreshold?: number
+}
+
+type ModalQueueProps = {
+    timeoutThreshold?: number
+    children:
+        | React.ReactElement<ModalQueueItemProps>[]
+        | React.ReactElement<ModalQueueItemProps>
+}
+
+type ModalStackProps = {
+    timeoutThreshold?: number
+    children:
+        | React.ReactElement<ModalStackItemProps>[]
+        | React.ReactElement<ModalStackItemProps>
 }
 ```

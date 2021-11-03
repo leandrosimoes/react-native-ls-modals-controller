@@ -1,35 +1,100 @@
-# react-native-js-only-module-template
+# react-native-ls-modals-controller
 
-A custom template that I use to build JS Only Modules for React Native
+A React Native library to control multiple modals as a queue or a stack and avois some errors, specially on iOS
 
-##  What this template has?
+## Install
 
-* Typescript
-* Eslint
-* Prettier
-* Tests
-* Codacy Config File
-* GitHub Workflow to the package to NPM
-* Example Project
+`npm i react-native-ls-modals-controller` 
 
-## How can I use it?
+or 
 
-There are some steps to help you setup this template for your package.
+`yarn add react-native-ls-modals-controller`
 
-1 - Clone this project
-2 - Inside the project's root folder (This folder here), execute the command `node rename.js`
-3 - Following all the cli steps, your project will be set up with the new data provided
-4 - Enter the `package/` folder and execute `npm i`
-5 - Execute `npm run build` to build and create the `bin/` folder
+## Usage
 
-### If you DO NOT want to use the `example/` project
+1) Wrap your app content with the `ModalQueueProvider` or `ModalStackProvider`
 
-1 - Just delete the folder (`rm -rf example`)
+```jsx
+import { ModalQueueProvider, ModalStackProvider } from 'react-native-ls-modals-controller'
 
-### If you DO WANT to use the `example/` project
+export default App = () => {
+    return (
+        <ModalQueueProvider>
+            <ModalStackProvider>
+                ...
+            </ModalStackProvider>
+        </ModalQueueProvider>
+    )
+}
+```
 
-1 - Follow the instructions in `README.md` file from the `example/` project folder
+* PS: We strongly recomend using just one controller, `ModalQueueProvider` or `ModalStackProvider`. Since the state of both are not shared between each other, just use in case you really know how you'll control between the modals in each provider. We are planing to create a better way to manage that in the future.
 
-## Publishing the package to NPM
+2) Create a `ModalQueue` or a `ModalStack` and add some `ModalQueueItem` or `ModalStackItem` childs as you want
 
-1 - Follow the instructions in `README.md` file from the `package/` project folder
+```jsx
+const defaultModalProps = { animationType: 'slide' }
+
+<ModalQueue>
+    <ModalQueueItem id={1} component={...} {...defaultModalProps} />
+    <ModalQueueItem id={2} component={...} {...defaultModalProps} />
+    <ModalQueueItem id={3} component={...} {...defaultModalProps} />
+    ...
+</ModalQueue>
+
+<ModalStack>
+    <ModalStackItem id={1} component={...} {...defaultModalProps} />
+    <ModalStackItem id={2} component={...} {...defaultModalProps} />
+    <ModalStackItem id={3} component={...} {...defaultModalProps} />
+    ...
+</ModalStack>
+```
+
+3) Use the `useModalQueue` or `useModalStack` hooks to have access for state and methods
+
+```jsx
+    const { state, currentId, enqueue, dequeue, clear } = useModalQueue()
+    ...
+    
+    const { state, currentId, add, remove, clear } = useModalStack()
+    ...
+```
+
+## Types
+
+```typescript
+type ModalControllerState = {
+    queue: Array<number | string>
+}
+
+type ModalControllerContextProps = {
+    state: ModalControllerState
+    setState: React.Dispatch<React.SetStateAction<ModalControllerState>>
+}
+
+type ModalQueueItemProps = ModalProps & {
+    id: number | string
+    component: React.ReactNode
+    timeoutThreshold?: number
+}
+
+type ModalStackItemProps = ModalProps & {
+    id: number | string
+    component: React.ReactNode
+    timeoutThreshold?: number
+}
+
+type ModalQueueProps = {
+    timeoutThreshold?: number
+    children:
+        | React.ReactElement<ModalQueueItemProps>[]
+        | React.ReactElement<ModalQueueItemProps>
+}
+
+type ModalStackProps = {
+    timeoutThreshold?: number
+    children:
+        | React.ReactElement<ModalStackItemProps>[]
+        | React.ReactElement<ModalStackItemProps>
+}
+```
