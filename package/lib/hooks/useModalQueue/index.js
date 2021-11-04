@@ -4,14 +4,25 @@ function useModalQueue() {
     const { state, setState } = useContext(ModalQueueContext);
     const [currentId, setCurrentId] = useState(0);
     const enqueue = (id) => {
+        if (currentId === id)
+            return;
         setState((prev) => ({
             queue: [...prev.queue, id],
         }));
     };
-    const dequeue = () => {
-        setState((prev) => ({
-            queue: prev.queue.slice(1, prev.queue.length),
-        }));
+    const dequeue = (id) => {
+        let nextState = { queue: [] };
+        if (!id) {
+            nextState = {
+                queue: state.queue.slice(1, state.queue.length),
+            };
+        }
+        else {
+            nextState = {
+                queue: state.queue.filter((i) => i !== id),
+            };
+        }
+        setState({ ...nextState });
     };
     const clear = () => {
         setState({ queue: [] });

@@ -1,8 +1,9 @@
+import { ModalControllerState } from '../..';
 declare function useModalStack(): {
-    state: import("../..").ModalControllerState;
+    state: ModalControllerState;
     currentId: string | number;
-    add: (id: number) => void;
-    remove: () => void;
+    add: (id: string | number) => void;
+    remove: (id?: string | number | undefined) => void;
     clear: () => void;
 };
 export default useModalStack;
