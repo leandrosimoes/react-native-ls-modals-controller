@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { ModalControllerState } from '../..'
 import { ModalStackContext } from '../../context'
@@ -6,6 +6,17 @@ import { ModalStackContext } from '../../context'
 function useModalStack() {
     const { state, setState } = useContext(ModalStackContext)
     const [currentId, setCurrentId] = useState<string | number>(0)
+    const tempQueue = useRef<Array<string | number>>([])
+
+    const stash = () => {
+        tempQueue.current = state.queue
+        setState({ queue: [] })
+    }
+
+    const pop = () => {
+        const nextState: ModalControllerState = { queue: tempQueue.current }
+        setState({ ...nextState })
+    }
 
     const add = (id: string | number) => {
         if (currentId === id) return
@@ -47,6 +58,8 @@ function useModalStack() {
         currentId,
         add,
         remove,
+        stash,
+        pop,
         clear,
     }
 }

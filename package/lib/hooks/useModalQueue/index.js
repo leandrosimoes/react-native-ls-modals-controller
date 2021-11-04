@@ -1,8 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ModalQueueContext } from '../../context';
 function useModalQueue() {
     const { state, setState } = useContext(ModalQueueContext);
     const [currentId, setCurrentId] = useState(0);
+    const tempQueue = useRef([]);
+    const stash = () => {
+        tempQueue.current = state.queue;
+        setState({ queue: [] });
+    };
+    const pop = () => {
+        const nextState = { queue: tempQueue.current };
+        setState({ ...nextState });
+    };
     const enqueue = (id) => {
         if (currentId === id)
             return;
@@ -36,6 +45,8 @@ function useModalQueue() {
         currentId,
         enqueue,
         dequeue,
+        stash,
+        pop,
         clear,
     };
 }

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { ModalQueueContext } from '../../context'
 import { ModalControllerState } from '../../interfaces'
@@ -6,6 +6,17 @@ import { ModalControllerState } from '../../interfaces'
 function useModalQueue() {
     const { state, setState } = useContext(ModalQueueContext)
     const [currentId, setCurrentId] = useState<string | number>(0)
+    const tempQueue = useRef<Array<string | number>>([])
+
+    const stash = () => {
+        tempQueue.current = state.queue
+        setState({ queue: [] })
+    }
+
+    const pop = () => {
+        const nextState: ModalControllerState = { queue: tempQueue.current }
+        setState({ ...nextState })
+    }
 
     const enqueue = (id: string | number) => {
         if (currentId === id) return
@@ -46,6 +57,8 @@ function useModalQueue() {
         currentId,
         enqueue,
         dequeue,
+        stash,
+        pop,
         clear,
     }
 }
