@@ -1,5 +1,9 @@
 # react-native-ls-modals-controller
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b3d75dc0717a476198c95eea568847d4)](https://www.codacy.com/gh/leandrosimoes/react-native-ls-modals-controller/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=leandrosimoes/react-native-ls-modals-controller&amp;utm_campaign=Badge_Grade)
+[![npm version](https://badge.fury.io/js/react-native-ls-modals-controller.svg)](https://badge.fury.io/js/react-native-ls-modals-controller)
+![Node.js Package](https://github.com/leandrosimoes/react-native-ls-modals-controller/workflows/Node%2Ejs%20Package/badge.svg)
+
 A React Native library to control multiple modals as a queue or a stack and avois some errors, specially on iOS
 
 ## Install
