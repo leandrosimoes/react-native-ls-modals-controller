@@ -1,20 +1,34 @@
 import { useContext, useEffect, useState } from 'react'
+
+import { ModalControllerState } from '../..'
 import { ModalStackContext } from '../../context'
 
 function useModalStack() {
     const { state, setState } = useContext(ModalStackContext)
     const [currentId, setCurrentId] = useState<string | number>(0)
 
-    const add = (id: number) => {
+    const add = (id: string | number) => {
+        if (currentId === id) return
+
         setState((prev) => ({
             queue: [...prev.queue, id],
         }))
     }
 
-    const remove = () => {
-        setState((prev) => ({
-            queue: prev.queue.slice(0, prev.queue.length - 1),
-        }))
+    const remove = (id?: string | number) => {
+        let nextState: ModalControllerState = { queue: [] }
+
+        if (!id) {
+            nextState = {
+                queue: state.queue.slice(0, state.queue.length - 1),
+            }
+        } else {
+            nextState = {
+                queue: state.queue.filter((i) => i !== id),
+            }
+        }
+
+        setState({ ...nextState })
     }
 
     const clear = () => {
