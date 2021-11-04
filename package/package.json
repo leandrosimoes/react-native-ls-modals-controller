@@ -1,7 +1,7 @@
 {
   "name": "react-native-ls-modals-controller",
   "title": "A React Native library to control multiple modals as a queue or a stack",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A React Native library to control multiple modals as a queue or a stack and avois some errors, specially on iOS",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -37,15 +37,15 @@
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-native": ">=0.65.1"
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-typescript": "^7.15.0",
     "@types/jest": "^27.0.1",
-    "react": "^17.0.2",
+    "react": "^16.13.1",
     "react-native": "^0.65.1"
   },
   "dependencies": {
