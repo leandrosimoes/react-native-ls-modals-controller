@@ -11,13 +11,7 @@ const ModalQueueItem: React.FC<ModalQueueItemProps> = ({
     ...rest
 }) => {
     const [isVisible, setIsVisible] = useState(false)
-    const { currentId, dequeue } = useModalQueue()
-
-    const handleOnRequestClose = () => {
-        if (rest.onRequestClose) rest.onRequestClose()
-
-        dequeue()
-    }
+    const { currentId } = useModalQueue()
 
     useEffect(() => {
         let timeout: NodeJS.Timeout
@@ -34,11 +28,7 @@ const ModalQueueItem: React.FC<ModalQueueItemProps> = ({
     }, [currentId])
 
     return (
-        <Modal
-            {...rest}
-            visible={isVisible}
-            onRequestClose={handleOnRequestClose}
-        >
+        <Modal {...rest} visible={isVisible}>
             {component}
         </Modal>
     )

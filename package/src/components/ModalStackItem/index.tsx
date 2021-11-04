@@ -11,13 +11,7 @@ const ModalStackItem: React.FC<ModalStackItemProps> = ({
     ...rest
 }) => {
     const [isVisible, setIsVisible] = useState(false)
-    const { currentId, remove } = useModalStack()
-
-    const handleOnRequestClose = () => {
-        if (rest.onRequestClose) rest.onRequestClose()
-
-        remove()
-    }
+    const { currentId } = useModalStack()
 
     useEffect(() => {
         let timeout: NodeJS.Timeout
@@ -34,11 +28,7 @@ const ModalStackItem: React.FC<ModalStackItemProps> = ({
     }, [currentId])
 
     return (
-        <Modal
-            {...rest}
-            visible={isVisible}
-            onRequestClose={handleOnRequestClose}
-        >
+        <Modal {...rest} visible={isVisible}>
             {component}
         </Modal>
     )
