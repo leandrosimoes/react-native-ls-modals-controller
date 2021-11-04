@@ -5,20 +5,29 @@ import {
     ModalControllerState,
 } from '../interfaces'
 
-const DEFAULT_STATE: ModalControllerState = {
+const DEFAULT_QUEUE_STATE: ModalControllerState = {
     queue: [],
 }
 
-const INITIAL_STATE: ModalControllerContextProps = {
-    state: DEFAULT_STATE,
+const INITIAL_QUEUE_STATE: ModalControllerContextProps = {
+    state: DEFAULT_QUEUE_STATE,
     setState: () => {},
 }
 
-export const ModalQueueContext = createContext(INITIAL_STATE)
-export const ModalStackContext = createContext(INITIAL_STATE)
+const DEFAULT_STACK_STATE: ModalControllerState = {
+    queue: [],
+}
+
+const INITIAL_STACK_STATE: ModalControllerContextProps = {
+    state: DEFAULT_STACK_STATE,
+    setState: () => {},
+}
+
+export const ModalQueueContext = createContext(INITIAL_QUEUE_STATE)
+export const ModalStackContext = createContext(INITIAL_STACK_STATE)
 
 export const ModalQueueProvider: React.FC = ({ children }) => {
-    const [state, setState] = useState(INITIAL_STATE.state)
+    const [state, setState] = useState(INITIAL_QUEUE_STATE.state)
 
     return (
         <ModalQueueContext.Provider value={{ state, setState }}>
@@ -28,7 +37,7 @@ export const ModalQueueProvider: React.FC = ({ children }) => {
 }
 
 export const ModalStackProvider: React.FC = ({ children }) => {
-    const [state, setState] = useState(INITIAL_STATE.state)
+    const [state, setState] = useState(INITIAL_STACK_STATE.state)
 
     return (
         <ModalStackContext.Provider value={{ state, setState }}>
