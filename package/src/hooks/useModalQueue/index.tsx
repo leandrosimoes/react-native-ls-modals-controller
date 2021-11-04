@@ -1,7 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { ModalQueueContext } from '../../context'
-import { ModalControllerState } from '../../interfaces'
 
 function useModalQueue() {
     const { state, setState } = useContext(ModalQueueContext)
@@ -9,48 +8,43 @@ function useModalQueue() {
     const tempQueue = useRef<Array<string | number>>([])
 
     const stash = () => {
+        if (state.queue.length === 0) return
+
         tempQueue.current = state.queue
-        setState({ queue: [] })
+        setState(() => ({ queue: [] }))
     }
 
     const pop = () => {
-        const nextState: ModalControllerState = { queue: tempQueue.current }
-        setState({ ...nextState })
+        if (tempQueue.current.length === 0) return
+
+        setState(() => ({ queue: tempQueue.current }))
     }
 
     const enqueue = (id: string | number) => {
         if (currentId === id) return
 
-        setState((prev) => ({
-            queue: [...prev.queue, id],
-        }))
+        setState((prev) => ({ queue: [...prev.queue, id] }))
     }
 
     const dequeue = (id?: string | number) => {
-        let nextState: ModalControllerState = { queue: [] }
+        if (state.queue.length === 0) return
 
-        if (!id) {
-            nextState = {
-                queue: state.queue.slice(1, state.queue.length),
-            }
-        } else {
-            nextState = {
-                queue: state.queue.filter((i) => i !== id),
-            }
-        }
+        setState((prev) => {
+            if (!id) return { queue: prev.queue.slice(1, state.queue.length) }
 
-        setState({ ...nextState })
+            return { queue: prev.queue.filter((i) => i !== id) }
+        })
     }
 
     const clear = () => {
-        setState({ queue: [] })
+        if (state.queue.length === 0) return
+
+        setState(() => ({ queue: [] }))
     }
 
     useEffect(() => {
-        const next = state.queue.length > 0 ? state.queue[0] : 0
-
-        setCurrentId(next)
-    }, [state])
+        setCurrentId(() => (state.queue.length > 0 ? state.queue[0] : 0))
+    }, [state.queue])
 
     return {
         state,

@@ -1,6 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 
-import { ModalControllerState } from '../..'
 import { ModalStackContext } from '../../context'
 
 function useModalStack() {
@@ -9,49 +8,46 @@ function useModalStack() {
     const tempQueue = useRef<Array<string | number>>([])
 
     const stash = () => {
+        if (state.queue.length === 0) return
+
         tempQueue.current = state.queue
-        setState({ queue: [] })
+        setState(() => ({ queue: [] }))
     }
 
     const pop = () => {
-        const nextState: ModalControllerState = { queue: tempQueue.current }
-        setState({ ...nextState })
+        if (tempQueue.current.length === 0) return
+
+        setState(() => ({ queue: tempQueue.current }))
     }
 
     const add = (id: string | number) => {
         if (currentId === id) return
 
-        setState((prev) => ({
-            queue: [...prev.queue, id],
-        }))
+        setState((prev) => ({ queue: [...prev.queue, id] }))
     }
 
     const remove = (id?: string | number) => {
-        let nextState: ModalControllerState = { queue: [] }
+        if (state.queue.length === 0) return
 
-        if (!id) {
-            nextState = {
-                queue: state.queue.slice(0, state.queue.length - 1),
-            }
-        } else {
-            nextState = {
-                queue: state.queue.filter((i) => i !== id),
-            }
-        }
+        setState((prev) => {
+            if (!id)
+                return { queue: prev.queue.slice(0, state.queue.length - 1) }
 
-        setState({ ...nextState })
+            return { queue: prev.queue.filter((i) => i !== id) }
+        })
     }
 
     const clear = () => {
-        setState({ queue: [] })
+        if (state.queue.length === 0) return
+
+        setState(() => ({ queue: [] }))
     }
 
     useEffect(() => {
-        const next =
+        setCurrentId(() =>
             state.queue.length > 0 ? state.queue[state.queue.length - 1] : 0
-
-        setCurrentId(next)
-    }, [state])
+        )
+    }, [state.queue])
 
     return {
         state,

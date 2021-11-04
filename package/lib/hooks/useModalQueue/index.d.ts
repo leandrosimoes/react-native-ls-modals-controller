@@ -1,6 +1,5 @@
-import { ModalControllerState } from '../../interfaces';
 declare function useModalQueue(): {
-    state: ModalControllerState;
+    state: import("../..").ModalControllerState;
     currentId: string | number;
     enqueue: (id: string | number) => void;
     dequeue: (id?: string | number | undefined) => void;

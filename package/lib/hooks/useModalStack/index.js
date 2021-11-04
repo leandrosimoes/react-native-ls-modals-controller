@@ -5,41 +5,38 @@ function useModalStack() {
     const [currentId, setCurrentId] = useState(0);
     const tempQueue = useRef([]);
     const stash = () => {
+        if (state.queue.length === 0)
+            return;
         tempQueue.current = state.queue;
-        setState({ queue: [] });
+        setState(() => ({ queue: [] }));
     };
     const pop = () => {
-        const nextState = { queue: tempQueue.current };
-        setState({ ...nextState });
+        if (tempQueue.current.length === 0)
+            return;
+        setState(() => ({ queue: tempQueue.current }));
     };
     const add = (id) => {
         if (currentId === id)
             return;
-        setState((prev) => ({
-            queue: [...prev.queue, id],
-        }));
+        setState((prev) => ({ queue: [...prev.queue, id] }));
     };
     const remove = (id) => {
-        let nextState = { queue: [] };
-        if (!id) {
-            nextState = {
-                queue: state.queue.slice(0, state.queue.length - 1),
-            };
-        }
-        else {
-            nextState = {
-                queue: state.queue.filter((i) => i !== id),
-            };
-        }
-        setState({ ...nextState });
+        if (state.queue.length === 0)
+            return;
+        setState((prev) => {
+            if (!id)
+                return { queue: prev.queue.slice(0, state.queue.length - 1) };
+            return { queue: prev.queue.filter((i) => i !== id) };
+        });
     };
     const clear = () => {
-        setState({ queue: [] });
+        if (state.queue.length === 0)
+            return;
+        setState(() => ({ queue: [] }));
     };
     useEffect(() => {
-        const next = state.queue.length > 0 ? state.queue[state.queue.length - 1] : 0;
-        setCurrentId(next);
-    }, [state]);
+        setCurrentId(() => state.queue.length > 0 ? state.queue[state.queue.length - 1] : 0);
+    }, [state.queue]);
     return {
         state,
         currentId,
