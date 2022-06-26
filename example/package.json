@@ -6,7 +6,7 @@
     "update": "node ./prepare.js",
     "android": "react-native run-android",
     "start": "npm-run-all update android",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "tsc --project tsconfig.json --noEmit && eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "react": "18.2.0",

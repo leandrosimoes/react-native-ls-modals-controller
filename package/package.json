@@ -9,7 +9,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "tsc --project tsconfig.json --noEmit && eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest .",
     "build": "rm -rf lib && tsc -p ./tsconfig.json"
   },
