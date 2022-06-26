@@ -5694,10 +5694,10 @@ react-native-gradle-plugin@^0.0.7:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz#96602f909745239deab7b589443f14fce5da2056"
   integrity sha512-+4JpbIx42zGTONhBTIXSyfyHICHC29VTvhkkoUOJAh/XHPEixpuBduYgf6Y4y9wsN1ARlQhBBoptTvXvAFQf5g==
 
-react-native-ls-modals-controller@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-ls-modals-controller/-/react-native-ls-modals-controller-1.1.2.tgz#f501f9ae375e45cf0381fd29a9fcfcb6010cdf83"
-  integrity sha512-1hiRtM3w5kdc+dSyAsfYughdV+mJG9Sq5yfmpQFI++b20GdRidfGsrZp4x1cAD4aXXpqu9ij6EcQVoyjhqSryg==
+react-native-ls-modals-controller@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-ls-modals-controller/-/react-native-ls-modals-controller-1.1.4.tgz#f63cb20c298f8830ea34ce52fa0d63487baceaae"
+  integrity sha512-LP39Br+Uvrt16I92HY50ZEiofL1PwehjnKytS7ukcM1z+PdDCFMiiO3mjGt7f5po4sTqXawZGW79GLxDJ9654Q==
 
 react-native@0.69.0:
   version "0.69.0"
