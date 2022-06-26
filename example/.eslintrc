@@ -23,6 +23,7 @@
     "react-hooks/exhaustive-deps": 0,
     "react/static-property-placement": 0,
     "react/jsx-props-no-spreading": 0,
+    "react/function-component-definition": 0,
     "react/prop-types": 0,
     "react/jsx-filename-extension": [
       1,

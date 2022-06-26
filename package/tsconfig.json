@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": ["es2017"],
+    "lib": ["es2020"],
     "allowJs": true,
     "jsx": "react-native",
     "isolatedModules": false,
@@ -18,5 +18,5 @@
   "exclude": [
     "node_modules", "babel.config.js", "metro.config.js", "jest.config.js", "**/*.test.*", "**/*.spec.*"
   ],
-  "include": ["src/**/*"]
+  "include": ["src"]
 }

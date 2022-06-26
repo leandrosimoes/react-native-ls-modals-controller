@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, ReactNode, useState } from 'react'
 
 import {
     ModalControllerContextProps,
@@ -26,7 +26,9 @@ const INITIAL_STACK_STATE: ModalControllerContextProps = {
 export const ModalQueueContext = createContext(INITIAL_QUEUE_STATE)
 export const ModalStackContext = createContext(INITIAL_STACK_STATE)
 
-export const ModalQueueProvider: React.FC = ({ children }) => {
+export const ModalQueueProvider: React.FC<{ children: ReactNode }> = ({
+    children,
+}) => {
     const [state, setState] = useState(INITIAL_QUEUE_STATE.state)
 
     return (
@@ -36,7 +38,9 @@ export const ModalQueueProvider: React.FC = ({ children }) => {
     )
 }
 
-export const ModalStackProvider: React.FC = ({ children }) => {
+export const ModalStackProvider: React.FC<{ children: ReactNode }> = ({
+    children,
+}) => {
     const [state, setState] = useState(INITIAL_STACK_STATE.state)
 
     return (

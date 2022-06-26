@@ -52,7 +52,7 @@ function executeAsync(command) {
             `cp -f ${PACKAGE_PATH}/package.json ${PACKAGE_DEST_PATH}/package.json`
         )
         await executeAsync(
-            `cp -f ${PACKAGE_PATH}/package-lock.json ${PACKAGE_DEST_PATH}/package-lock.json`
+            `cp -f ${PACKAGE_PATH}/yarn.lock ${PACKAGE_DEST_PATH}/yarn.lock`
         )
     } catch (err) {
         console.error(err)

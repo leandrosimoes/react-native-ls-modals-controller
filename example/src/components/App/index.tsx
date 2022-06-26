@@ -11,7 +11,7 @@ const App = () => {
     return (
         <ModalQueueProvider>
             <ModalStackProvider>
-                <View style={{ flex: 1, paddingHorizontal: 30, paddingVertical: 100 }}>
+                <View style={{ flex: 1 }}>
                     {!useStack && <QueueSample />}
                     {!useStack && (
                         <Button

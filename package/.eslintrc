@@ -23,6 +23,9 @@
     "react-hooks/exhaustive-deps": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/interface-name-prefix": 0,
+    "react/function-component-definition": 0,
+    "react/jsx-no-useless-fragment": 0,
+    "react/jsx-no-constructed-context-values": 0,
     "react/jsx-props-no-spreading": 0,
     "react/static-property-placement": 0,
     "react/jsx-filename-extension": [
