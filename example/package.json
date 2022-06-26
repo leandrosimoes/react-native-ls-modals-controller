@@ -11,7 +11,7 @@
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.69.0",
-    "react-native-ls-modals-controller": "^1.1.3"
+    "react-native-ls-modals-controller": "^1.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
